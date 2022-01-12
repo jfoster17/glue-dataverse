@@ -6,7 +6,7 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5 import QtCore
 
 
-SUPPORTED_TYPES = ['application/fits']
+SUPPORTED_TYPES = ['application/fits','image/fits']
 
 
 class FileDownload:
@@ -43,7 +43,8 @@ class DataVerseImportDialog(QDialog):
         mime_type = event.mimeType()
 
         if mime_type not in SUPPORTED_TYPES:
-            QMessageBox.error('Glue does not support files of type {0}'.format(mime_type))
+            qmb = QMessageBox(QMessageBox.Critical, "Error", f"Glue-dataverse does not support files of type {mime_type}")
+            qmb.exec_()
             return
 
         event.accept()
